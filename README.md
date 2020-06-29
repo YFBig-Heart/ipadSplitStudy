@@ -4,8 +4,6 @@
 
 分屏：两个App可以同时展示在界面上
 
-
-
 **1.1分屏的条件**
 1.必须是在iPad上，系统版本>=iOS9。
 2.需要使用LaunchScreen.storyboard来做启动图（有验证）
@@ -36,15 +34,13 @@ if UI_USER_INTERFACE_IDIOM() == .Pad {}
 ```
 2.traitCollectionDidChange 是**UITraitEnvironment**协议里面的，View和Controller 都遵循了，`区别1：`测试发现：9.7inch 横屏状态时1/3到半屏的切换不会调用该方法，竖屏4:6分屏切换时也不走，是因为此时horizontalSizeClass 为 C，verticalSizeClass为R 没有变化
 
-`区别2：`当Push进入的时候会自动调用一遍traitCollectionDidChange方法
+`区别2：`当Push进入的时候会自动调用一遍traitCollectionDidChange方法,willTransition不会
 
 ```swift
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         //更新Frame,调整位置
     }
 ```
-
-
 
 
 
@@ -107,15 +103,13 @@ accessibilityContrast：是否开启高对比度的配置
 
 #### 2.1 Sb 中sizeclass 设置多套布局
 
-a.方案一 用Sizeclass 在同一个Xib中设置约束
+用Sizeclass 在Xib中针对不同屏幕状态设置约束，这个不展开可以自行试一下
 
-b.方案二创建多个Xib或Sb
-
-
+![1593336959497](Images/1593336959497.jpg)
 
 #### 2.2 使用Snapkit 或Mansory 进行约束布局
 
-**案例1: SnapKit 布局**,这个案例是针对水平方向宽度：C和R  布局，也可以针对1/3, 1/2,2/3 去单独约束，大部分情况下一个页面两种布局就够用，多了得思考一下UI的问题了。
+SnapKit 布局**,这个案例是针对水平方向宽度：C和R  布局，也可以针对1/3, 1/2,2/3 去单独约束，大部分情况下一个页面两种布局就够用，多了得思考一下UI的问题了。
 
 ```swift
 import UIKit
@@ -197,8 +191,6 @@ func layoutSubviews(newCollection: UITraitCollection) {
 
 #### 备注： iPad屏幕分辨率,分屏线占10pt
 
-
-
 | 设备         | 尺寸      | 倍数 |
 | :----------- | :-------- | :--- |
 | iPad 7.9/9.7 | 768x1024  | @2x  |
@@ -233,9 +225,7 @@ func layoutSubviews(newCollection: UITraitCollection) {
 
 ![2019121711470995](Images/2019121711470995.png)
 
-
-
-
+示例代码：[Demo](https://github.com/YFBig-Heart/ipadSplitStudy)
 
 参考链接
 
